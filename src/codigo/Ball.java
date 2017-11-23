@@ -70,7 +70,7 @@ public class Ball extends GOval{
 		boolean collisionClear = true;
 		GObject auxiliar;
 		auxiliar = _game.getElementAt(posX, posY);
-
+		//TODO Arreglar la colision 
 		if (auxiliar instanceof Brick){
 			if(auxiliar.getY() == posY || auxiliar.getY()+auxiliar.getHeight() == posY){
 				yVelocidad*=-1;
@@ -79,6 +79,7 @@ public class Ball extends GOval{
 				xVelocidad*=-1;
 			}
 			_game.remove(auxiliar);
+			_game.scoreBox.setMarker(20);
 			collisionClear = false;
 		}
 		else if(auxiliar instanceof Bar){

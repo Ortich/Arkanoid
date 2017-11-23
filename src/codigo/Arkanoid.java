@@ -17,7 +17,6 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 	Ball ball_1 = new Ball(10, Color.BLUE);
 	Bar bar_1 = new Bar(60, 10, Color.DARK_GRAY);
 	
-	int puntuation = 0;
 	ScoreBox scoreBox = new ScoreBox(20, 40);
 	
 	public void init(){
