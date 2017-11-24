@@ -13,7 +13,7 @@ public class ScoreBox extends GRect {
 		super(width, height);
 		setFilled(true);
 		setFillColor(Color.WHITE);
-		text.setLabel("");
+		text.setLabel("Score");
 		text.setFont(new Font("Verdana", Font.BOLD, 18));
 	}
 	public void drawScoreBox(Arkanoid _arkanoid){
@@ -22,7 +22,7 @@ public class ScoreBox extends GRect {
 	}
 	public void setMarker(int _points){
 		points+=_points;
-		text.setLabel("" + points);
+		text.setLabel("Score: " + points);
 	}
 }
 

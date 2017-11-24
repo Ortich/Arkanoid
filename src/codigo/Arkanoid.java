@@ -6,12 +6,14 @@ import java.awt.event.MouseEvent;
 import acm.graphics.*;
 /**
  * 
- * @author Daniel Ortiz Vallejoo
+ * @author Daniel Ortiz Vallejo
  *
  *	Este va a ser el Arkanoid tio, EL PUTO ARKANOID
  */
+//TODO Sistema de Bonus para subir nota.
 public class Arkanoid extends acm.program.GraphicsProgram{
-	
+	//TODO Crear vidas y cambiar el nivel
+	//Truco para el nivel, jugar con una variable booleana llamada GameOver. 
 	int brickHeight = 15;
 	int brickWidth = 25;
 	Ball ball_1 = new Ball(10, Color.BLUE);
@@ -33,8 +35,8 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 		add(scoreBox.text, 0, 20);
 		while(true){
 			ball_1.moveBall(this);
-			bar_1.setLocation(ball_1.getX() - bar_1.getHeight()/2, bar_1.getY());
-			pause(5);
+			bar_1.setLocation((ball_1.getX()+ball_1.getHeight()/2)-bar_1.getWidth()/2, bar_1.getY());
+			pause(20);
 		}
 	}
 	
