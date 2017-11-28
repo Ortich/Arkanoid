@@ -20,6 +20,8 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 	Bar bar_1 = new Bar(60, 10, Color.DARK_GRAY);
 	
 	ScoreBox scoreBox = new ScoreBox(150, 40);
+	Lifes lifes = new Lifes(150, 40, 3);
+	GLabel gameOver = new GLabel("GAME OVER");
 	
 	public void init(){
 		addMouseListeners();
@@ -33,10 +35,23 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 		scoreBox.drawScoreBox(this);
 		add(scoreBox,210, 480);
 		add(scoreBox.text, 215, 505);
-		while(true){
+		add(lifes, 10, 480);
+		add(lifes.text, 15, 480);
+		gameOver.setFont(new Font("Verdana", Font.BOLD, 30));
+		while(true && lifes.lifes>0){
 			ball_1.moveBall(this);
 			//bar_1.setLocation((ball_1.getX()+ball_1.getHeight()/2)-bar_1.getWidth()/2, bar_1.getY());
 			pause(20);
+		}
+		if(lifes.lifes<=0){
+			remove(bar_1);
+			remove(ball_1);
+			remove(lifes);
+			remove(scoreBox);
+			remove(lifes.text);
+			remove(scoreBox.text);
+			add(gameOver, 80, 300);
+			
 		}
 	}
 	

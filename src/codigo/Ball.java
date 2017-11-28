@@ -49,10 +49,15 @@ public class Ball extends GOval{
 		if(this.getY()<=0){
 			yVelocidad *=-1;
 		}
+		//TODO Poner la salida de la bola cuando pierde una vida en la barra.
 		if(this.getY()>=_game.getHeight()-this.getWidth()){
-//			yVelocidad*=0;
-//			xVelocidad*=0;
-			yVelocidad*=-1;
+			yVelocidad*=0;
+			xVelocidad*=0;
+			//yVelocidad*=-1;      //Esta hecho para hacer comprobaciones. Simplemente rebota en el suelo.
+			_game.lifes.setLessLifes(1);
+			_game.ball_1.setLocation(1, _game.getHeight()*0.70-getHeight());
+			xVelocidad = 3;
+			yVelocidad = -3;
 		}
 		//Voy a dividir la bola en 8 puntos para hacer las comprobaciones pertinentes. 
 		//Los puntos estaran repartdos de la sieguiente manera.
@@ -90,7 +95,7 @@ public class Ball extends GOval{
 		auxiliar = _game.getElementAt(posX, posY);
 		 		
 		//-----------------------------
-		//TODO Arreglar la colision
+		//TODO Poner bordes a los bricks
 		//Ahora ,si ha chocado con un Brick entra aqui
 		if (auxiliar instanceof Brick){
 			//Voy  a dividir la colision en dos partes. La primera si Choca por arriba o abajo.
@@ -108,6 +113,14 @@ public class Ball extends GOval{
 			_game.scoreBox.setMarker(20);
 			collisionClear = false;
 		}
+		/*
+		 * if(auxiliar.getY()+auxiliar.getHeight()== (int)getY()&& auxiliar.getY()==(int)getY()){
+		 * yVelocidad*=-1;
+		 * }
+		 * else if(auxiliar.getX()+ auxiliar.getWidth()==(int)getX() && auxiliar.getX()==(int)getX()){
+		 * xVelocidad*=-1;
+		 * }
+		 */
 		
 		//------------------------	
 		
@@ -161,7 +174,6 @@ public class Ball extends GOval{
 				yVelocidad = -0.5;
 			}
 			collisionClear = true;
-			//TODO Hacer mas variacion de rebotes 
 //			 
 //			if(centroBola > auxiliar.getX() + auxiliar.getWidth()/3 &&
 //					centroBola< auxiliar.getX() +2*auxiliar.getWidth()/3){
