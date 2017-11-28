@@ -19,23 +19,23 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 	Ball ball_1 = new Ball(10, Color.BLUE);
 	Bar bar_1 = new Bar(60, 10, Color.DARK_GRAY);
 	
-	ScoreBox scoreBox = new ScoreBox(20, 40);
+	ScoreBox scoreBox = new ScoreBox(150, 40);
 	
 	public void init(){
 		addMouseListeners();
 		setSize(400,600);	
 		
-		add(ball_1,0, getHeight()*0.75-ball_1.getHeight());
-		add(bar_1, 0, getHeight()*0.80);
+		add(ball_1,0, getHeight()*0.70-ball_1.getHeight());
+		add(bar_1, 0, getHeight()*0.75);
 	}
 	public void run(){		
 		level_01();
 		scoreBox.drawScoreBox(this);
-		add(scoreBox, 10, 10);
-		add(scoreBox.text, 0, 20);
+		add(scoreBox,210, 480);
+		add(scoreBox.text, 215, 505);
 		while(true){
 			ball_1.moveBall(this);
-			bar_1.setLocation((ball_1.getX()+ball_1.getHeight()/2)-bar_1.getWidth()/2, bar_1.getY());
+			//bar_1.setLocation((ball_1.getX()+ball_1.getHeight()/2)-bar_1.getWidth()/2, bar_1.getY());
 			pause(20);
 		}
 	}

@@ -33,7 +33,7 @@ public class Bar extends GRect {
 	 * 			Ancho de la pantalla
 	 */
 	public void moveBar(int xPos, int _weightScreen){
-		if(xPos + getWidth() < _weightScreen){
+		if(xPos + getWidth() < _weightScreen&& xPos>= 0){
 			setLocation(xPos, getY());
 		}
 	}

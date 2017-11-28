@@ -12,7 +12,7 @@ public class ScoreBox extends GRect {
 	public ScoreBox(double width, double height) {
 		super(width, height);
 		setFilled(true);
-		setFillColor(Color.WHITE);
+		setFillColor(Color.GREEN);
 		text.setLabel("Score");
 		text.setFont(new Font("Verdana", Font.BOLD, 18));
 	}

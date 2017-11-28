@@ -91,17 +91,18 @@ public class Ball extends GOval{
 		 		
 		//-----------------------------
 		//TODO Arreglar la colision
-		//Ahora ,si ha chocado conun Brick entra aqui
+		//Ahora ,si ha chocado con un Brick entra aqui
 		if (auxiliar instanceof Brick){
 			//Voy  a dividir la colision en dos partes. La primera si Choca por arriba o abajo.
 			if(auxiliar.getY()+auxiliar.getHeight()<= getY() 	//Si choca con la parte de abajo de un brick
-					|| auxiliar.getY()>=getY()){				//O con la parte de arriba de un brick
-				yVelocidad*=-1;									//Cambia la velocidad.
+					&& auxiliar.getY()>=getY()){				
+				yVelocidad*=-1;									//Cambia la velocidad.		
 			}
 			//La segunda si choca por algun lateral.
-			else if(auxiliar.getX()+auxiliar.getWidth()>=getX() 		//Si choca con la parte derecha de un brick
-					|| auxiliar.getX()<=getX()){				//O la parte izquierda
+			else if(auxiliar.getX()+ auxiliar.getWidth()>=getX() 		//Si choca con la parte derecha de un brick
+					&& auxiliar.getX()<=getX()){				//O la parte izquierda
 				xVelocidad*=-1;									//Cambia la velocidad
+				
 			}
 			_game.remove(auxiliar);
 			_game.scoreBox.setMarker(20);
