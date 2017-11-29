@@ -11,9 +11,8 @@ import acm.graphics.GOval;
  */
 public class BallAux extends GOval{
 
-	double xVelocidad = 5;
-	double yVelocidad = -5;
-	double magicalCounter = 0;//Para aumentar la velocidad de la bola
+	double xVelocidad = 1;
+	double yVelocidad = -1;
 	/**
 	 * Constructor tal y como lo usa la clase GOval
 	 * @param ancho
@@ -52,7 +51,6 @@ public class BallAux extends GOval{
 		if(this.getY()>=_game.getHeight()-this.getWidth()){
 			yVelocidad*=0;
 			xVelocidad*=0;
-			//yVelocidad*=-1;      //Esta hecho para hacer comprobaciones. Simplemente rebota en el suelo.
 			_game.remove(this);
 			_game.multipleBalls--;
 		}
@@ -92,158 +90,78 @@ public class BallAux extends GOval{
 		auxiliar = _game.getElementAt(posX, posY);
 
 		//-----------------------------
-		//TODO Poner bordes a los bricks
 		//Ahora ,si ha chocado con un Brick entra aqui
 		if (auxiliar instanceof Brick){
-			
-		
-//			//Voy a a dibujar en el brick 4 bordes en los que puede estar la bola.Dependiendo de en que borde este, 
-//			//hará una cosa u otra.
-//			
-//			//Primer borde
-//			if(auxiliar.getY()-auxiliar.getHeight()<=posY && auxiliar.getY()-auxiliar.getHeight()+4 >=posY){
-//				if(auxiliar.getX()+getWidth()>=posX && auxiliar.getX()+getWidth()-4<=posX){
-//					xVelocidad*=-1;
-//				}
-//				else if(auxiliar.getX()<=posX && auxiliar.getX()+4>=posX){
-//					xVelocidad*=-1;
-//				}
-//				yVelocidad*=-1;
-//			}
-//			//Segundo borde
-//			if(auxiliar.getY() >= posY && auxiliar.getY()-4 <=posY){
-//				yVelocidad*=-1;
-//				if(auxiliar.getX()+getWidth()>=posX && auxiliar.getX()+getWidth()-4<=posX){
-//					xVelocidad*=-1;
-//				}
-//				else if(auxiliar.getX()<=posX && auxiliar.getX()+4>=posX){
-//					xVelocidad*=-1;
-//				}
-//			}
-//			//Tercer borde
-//			else if(auxiliar.getX()+getWidth()>=posX && auxiliar.getX()+getWidth()-4<=posX){
-//				xVelocidad*=-1;
-//			}
-//			//Cuarto borde
-//			else if(auxiliar.getX()<=posX && auxiliar.getX()+4>=posX){
-//				xVelocidad*=-1;
-//			}
-//			_game.remove(auxiliar);
-//			_game.scoreBox.setMarker(20);
-//			collisionClear= false;
-//		}
-			//-----------------------------------------
-			//Voy  a dividir la colision en dos partes. La primera si Choca por arriba o abajo.
-			if(auxiliar.getY()+auxiliar.getHeight()<=posY 	//Si choca con la parte de abajo de un brick
-					&& auxiliar.getY()>=posY){				
-				yVelocidad*=-1;									//Cambia la velocidad.		
+			if((int)auxiliar.getY()+(int)auxiliar.getHeight()== (int)getY()|| (int)auxiliar.getY()==(int)getY()){
+				yVelocidad*=-1;
 			}
-			//La segunda si choca por algun lateral.
-			else if(auxiliar.getX()+ auxiliar.getWidth()>=posX 		//Si choca con la parte derecha de un brick
-					&& auxiliar.getX()<=posX){				//O la parte izquierda
-				xVelocidad*=-1;									//Cambia la velocidad
-
+			else if((int)auxiliar.getX()+ (int)auxiliar.getWidth()==(int)getX() || (int)auxiliar.getX()==(int)getX()){
+				xVelocidad*=-1;
 			}
 			_game.remove(auxiliar);
 			_game.scoreBox.setMarker(20);
-			_game.brickNumberLvl01-=1;
-			collisionClear = false;
-		}
-//			//--------------------------------------------------
-
-			//			if(auxiliar.getY()+auxiliar.getHeight()== (int)getY()&& auxiliar.getY()==(int)getY()){
-			//				yVelocidad*=-1;
-			//			}
-			//			else if(auxiliar.getX()+ auxiliar.getWidth()==(int)getX() && auxiliar.getX()==(int)getX()){
-			//				xVelocidad*=-1;
-			//			}
-		
-
-		//------------------------	
-
-		//Si ha chocado con la barra
-		else if(auxiliar instanceof Bar){
-			//Creamos el rebote en las puntas de la barra
-			//Para ello vamos a dividir la barra de la siguiente manera:
-			//  _______________________
-			// |  |  |  |     |  |  |  |
-			// |__|__|__|_____|__|__|__|
-			//   1  2  3   4    5  6  7
-			// La dividimos en 8 partes iguales, uniendo las dos centrales para el golpe "normal".
-			// Iremos dividiendo las colisiones una por una, para que vaya detectando donde golpea.
-			// 
-			// Lista de velocidades para la Y.
-			// 1 y 7: 0.5 
-			// 2 y 6: 1.0
-			// 3 y 5: 2.0
-			// 4    : 3.0
-
-			//Antes de nada declaramos lo siguiente
-			double centroBola = getX() + getWidth()/2;
-			//De esta forma tenemos en centro de la pelota para toma como referencia.
-
-
-			//Punto 1
-			if(auxiliar.getX()<= centroBola && auxiliar.getX()+auxiliar.getWidth()/8>centroBola){
-				yVelocidad = -0.5;
-			}
-			//Punto 2
-			if(auxiliar.getX()+auxiliar.getWidth()/8<=centroBola && auxiliar.getX()+auxiliar.getWidth()/4>centroBola){
-				yVelocidad = -1.0;
-			}
-			//Punto 3
-			if(auxiliar.getX()+auxiliar.getWidth()/4<=centroBola && auxiliar.getX()+3*auxiliar.getWidth()/8>centroBola){
-				yVelocidad = -2.0;
-			}
-			//Punto 4
-			if(auxiliar.getX()+ 3*auxiliar.getWidth()/8<=centroBola && auxiliar.getX()+5*auxiliar.getWidth()/8>centroBola){
-				yVelocidad = -3;
-			}
-			//Punto 5
-			if(auxiliar.getX() + 5*auxiliar.getWidth()/8<=centroBola && auxiliar.getX()+3*auxiliar.getWidth()/4>centroBola){
-				yVelocidad = -2.0;
-			}
-			//Punto 6
-			if(auxiliar.getX() + 3*auxiliar.getWidth()/4<=centroBola && auxiliar.getX()+7*auxiliar.getWidth()/8>centroBola){
-				yVelocidad = -1.0;
-			}
-			if(auxiliar.getX() + 7*auxiliar.getWidth()/8<=centroBola && auxiliar.getX()+auxiliar.getWidth() >=centroBola){
-				yVelocidad = -0.5;
-			}
-			collisionClear = true;
-			//			 
-			//			if(centroBola > auxiliar.getX() + auxiliar.getWidth()/3 &&
-			//					centroBola< auxiliar.getX() +2*auxiliar.getWidth()/3){
-			//				yVelocidad=-1;
-			//				
-			//			}
-			//			else{
-			//				yVelocidad=-0.5;
-			//			}
-			//			collisionClear = false;
+			_game.brickNumber--;
+			collisionClear=false;
 		}
 
-		//-------------------
-		//Aqui entra si se encuentra con el bonus de la barra
-		else if(auxiliar instanceof BonusBar){
-			_game.bar_1.setSize(120, 10);
-			_game.remove(auxiliar);
-			collisionClear = false;
+	//Si ha chocado con la barra
+	else if(auxiliar instanceof Bar){
+		//Creamos el rebote en las puntas de la barra
+		//Para ello vamos a dividir la barra de la siguiente manera:
+		//  _______________________
+		// |  |  |  |     |  |  |  |
+		// |__|__|__|_____|__|__|__|
+		//   1  2  3   4    5  6  7
+		// La dividimos en 8 partes iguales, uniendo las dos centrales para el golpe "normal".
+		// Iremos dividiendo las colisiones una por una, para que vaya detectando donde golpea.
+		// 
+		// Lista de velocidades para la Y.
+		// 1 y 7: 0.5 
+		// 2 y 6: 1.0
+		// 3 y 5: 2.0
+		// 4    : 3.0
+
+		//Antes de nada declaramos lo siguiente
+		double centroBola = getX() + getWidth()/2;
+		//De esta forma tenemos en centro de la pelota para toma como referencia.
+
+
+		//Punto 1
+		if(auxiliar.getX()<= centroBola && auxiliar.getX()+auxiliar.getWidth()/8>centroBola){
+			yVelocidad = -0.5;
 		}
-		//-----------------------------------
-		//Aqui entra si se encuentra con el debuff de la barra
-		else if(auxiliar instanceof DebuffBar){
-			_game.bar_1.setSize(30, 10);
-			_game.remove(auxiliar);
-			collisionClear = false;
+		//Punto 2
+		if(auxiliar.getX()+auxiliar.getWidth()/8<=centroBola && auxiliar.getX()+auxiliar.getWidth()/4>centroBola){
+			yVelocidad = -0.7;
 		}
-		//--------------------------------
-		//Aqui entra si hay otra bola
-		else if(auxiliar instanceof Ball){
-			yVelocidad*=-1;
-			xVelocidad*=-1;
+		//Punto 3
+		if(auxiliar.getX()+auxiliar.getWidth()/4<=centroBola && auxiliar.getX()+3*auxiliar.getWidth()/8>centroBola){
+			yVelocidad = -0.8;
 		}
-		//Si llega hasta aquí es que no hay colision con nada.
-		return collisionClear;
+		//Punto 4
+		if(auxiliar.getX()+ 3*auxiliar.getWidth()/8<=centroBola && auxiliar.getX()+5*auxiliar.getWidth()/8>centroBola){
+			yVelocidad = -1;
+		}
+		//Punto 5
+		if(auxiliar.getX() + 5*auxiliar.getWidth()/8<=centroBola && auxiliar.getX()+3*auxiliar.getWidth()/4>centroBola){
+			yVelocidad = -0.7;
+		}
+		//Punto 6
+		if(auxiliar.getX() + 3*auxiliar.getWidth()/4<=centroBola && auxiliar.getX()+7*auxiliar.getWidth()/8>centroBola){
+			yVelocidad = -0.8;
+		}
+		if(auxiliar.getX() + 7*auxiliar.getWidth()/8<=centroBola && auxiliar.getX()+auxiliar.getWidth() >=centroBola){
+			yVelocidad = -0.5;
+		}
+		collisionClear = true;
 	}
+
+	//Aqui entra si hay otra bola o bola auxiliar
+	else if(auxiliar instanceof Ball){
+		yVelocidad*=-1;
+		xVelocidad*=-1;
+	}
+	//Si llega hasta aquí es que no hay colision con nada.
+	return collisionClear;
+}
 }

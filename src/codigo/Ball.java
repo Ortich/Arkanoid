@@ -11,9 +11,8 @@ import acm.graphics.GOval;
  */
 public class Ball extends GOval{
 
-	double xVelocidad = 3;
-	double yVelocidad = -3;
-	double magicalCounter = 0;//Para aumentar la velocidad de la bola
+	double xVelocidad = 1;
+	double yVelocidad = -1;
 	/**
 	 * Constructor tal y como lo usa la clase GOval
 	 * @param ancho
@@ -55,9 +54,10 @@ public class Ball extends GOval{
 			//yVelocidad*=-1;      //Esta hecho para hacer comprobaciones. Simplemente rebota en el suelo.
 			_game.lifes.setLessLifes(1);
 			_game.ball_1.setLocation(_game.bar_1.getX(), _game.getHeight()*0.82-getHeight());
+			_game.speed=10;
 			pause(600);
-			xVelocidad = 3;
-			yVelocidad = -3;
+			xVelocidad = 1;
+			yVelocidad = -1;
 		}
 		//Voy a dividir la bola en 8 puntos para hacer las comprobaciones pertinentes. 
 		//Los puntos estaran repartdos de la sieguiente manera.
@@ -95,72 +95,20 @@ public class Ball extends GOval{
 		auxiliar = _game.getElementAt(posX, posY);
 
 		//-----------------------------
-		//TODO Poner bordes a los bricks
 		//Ahora ,si ha chocado con un Brick entra aqui
 		if (auxiliar instanceof Brick){
-			
-		
-//			//Voy a a dibujar en el brick 4 bordes en los que puede estar la bola.Dependiendo de en que borde este, 
-//			//hará una cosa u otra.
-//			
-//			//Primer borde
-//			if(auxiliar.getY()-auxiliar.getHeight()<=posY && auxiliar.getY()-auxiliar.getHeight()+4 >=posY){
-//				if(auxiliar.getX()+getWidth()>=posX && auxiliar.getX()+getWidth()-4<=posX){
-//					xVelocidad*=-1;
-//				}
-//				else if(auxiliar.getX()<=posX && auxiliar.getX()+4>=posX){
-//					xVelocidad*=-1;
-//				}
-//				yVelocidad*=-1;
-//			}
-//			//Segundo borde
-//			if(auxiliar.getY() >= posY && auxiliar.getY()-4 <=posY){
-//				yVelocidad*=-1;
-//				if(auxiliar.getX()+getWidth()>=posX && auxiliar.getX()+getWidth()-4<=posX){
-//					xVelocidad*=-1;
-//				}
-//				else if(auxiliar.getX()<=posX && auxiliar.getX()+4>=posX){
-//					xVelocidad*=-1;
-//				}
-//			}
-//			//Tercer borde
-//			else if(auxiliar.getX()+getWidth()>=posX && auxiliar.getX()+getWidth()-4<=posX){
-//				xVelocidad*=-1;
-//			}
-//			//Cuarto borde
-//			else if(auxiliar.getX()<=posX && auxiliar.getX()+4>=posX){
-//				xVelocidad*=-1;
-//			}
-//			_game.remove(auxiliar);
-//			_game.scoreBox.setMarker(20);
-//			collisionClear= false;
-//		}
-			//-----------------------------------------
-			//Voy  a dividir la colision en dos partes. La primera si Choca por arriba o abajo.
-			if(auxiliar.getY()+auxiliar.getHeight()<=posY 	//Si choca con la parte de abajo de un brick
-					&& auxiliar.getY()>=posY){				
-				yVelocidad*=-1;									//Cambia la velocidad.		
-			}
-			//La segunda si choca por algun lateral.
-			else if(auxiliar.getX()+ auxiliar.getWidth()>=posX 		//Si choca con la parte derecha de un brick
-					&& auxiliar.getX()<=posX){				//O la parte izquierda
-				xVelocidad*=-1;									//Cambia la velocidad
 
+			if((int)auxiliar.getY()+(int)auxiliar.getHeight()== (int)posY|| (int)auxiliar.getY()==(int)posY){
+				yVelocidad*=-1;
+			}
+			else if((int)auxiliar.getX()+ (int)auxiliar.getWidth()==posX || (int)auxiliar.getX()==(int)posX){
+				xVelocidad*=-1;
 			}
 			_game.remove(auxiliar);
 			_game.scoreBox.setMarker(20);
-			_game.brickNumberLvl01-=1;
-			collisionClear = false;
+			_game.brickNumber--;
+			collisionClear=false;
 		}
-//			//--------------------------------------------------
-
-			//			if(auxiliar.getY()+auxiliar.getHeight()== (int)getY()&& auxiliar.getY()==(int)getY()){
-			//				yVelocidad*=-1;
-			//			}
-			//			else if(auxiliar.getX()+ auxiliar.getWidth()==(int)getX() && auxiliar.getX()==(int)getX()){
-			//				xVelocidad*=-1;
-			//			}
-		
 
 		//------------------------	
 
@@ -192,38 +140,28 @@ public class Ball extends GOval{
 			}
 			//Punto 2
 			if(auxiliar.getX()+auxiliar.getWidth()/8<=centroBola && auxiliar.getX()+auxiliar.getWidth()/4>centroBola){
-				yVelocidad = -1.0;
+				yVelocidad = -0.7;
 			}
 			//Punto 3
 			if(auxiliar.getX()+auxiliar.getWidth()/4<=centroBola && auxiliar.getX()+3*auxiliar.getWidth()/8>centroBola){
-				yVelocidad = -2.0;
+				yVelocidad = -0.8;
 			}
 			//Punto 4
 			if(auxiliar.getX()+ 3*auxiliar.getWidth()/8<=centroBola && auxiliar.getX()+5*auxiliar.getWidth()/8>centroBola){
-				yVelocidad = -3;
+				yVelocidad = -1;
 			}
 			//Punto 5
 			if(auxiliar.getX() + 5*auxiliar.getWidth()/8<=centroBola && auxiliar.getX()+3*auxiliar.getWidth()/4>centroBola){
-				yVelocidad = -2.0;
+				yVelocidad = -0.8;
 			}
 			//Punto 6
 			if(auxiliar.getX() + 3*auxiliar.getWidth()/4<=centroBola && auxiliar.getX()+7*auxiliar.getWidth()/8>centroBola){
-				yVelocidad = -1.0;
+				yVelocidad = -0.7;
 			}
 			if(auxiliar.getX() + 7*auxiliar.getWidth()/8<=centroBola && auxiliar.getX()+auxiliar.getWidth() >=centroBola){
 				yVelocidad = -0.5;
 			}
 			collisionClear = true;
-			//			 
-			//			if(centroBola > auxiliar.getX() + auxiliar.getWidth()/3 &&
-			//					centroBola< auxiliar.getX() +2*auxiliar.getWidth()/3){
-			//				yVelocidad=-1;
-			//				
-			//			}
-			//			else{
-			//				yVelocidad=-0.5;
-			//			}
-			//			collisionClear = false;
 		}
 
 		//-------------------
@@ -242,13 +180,12 @@ public class Ball extends GOval{
 		}
 		//--------------------------------
 		//Aqui entra si se encuentra con el debuff de la barra
-				else if(auxiliar instanceof BonusBalls){
-					_game.add(_game.ball_2,_game.getWidth()/2-_game.bar_1.getWidth(), _game.getHeight()*0.70-_game.ball_2.getHeight());
-					_game.add(_game.ball_3, _game.getWidth()/4-_game.bar_1.getWidth(), _game.getHeight()*0.70-_game.ball_3.getHeight());
-					_game.multipleBalls=2;
-					_game.remove(auxiliar);
-					collisionClear = false;
-				}
+		else if(auxiliar instanceof BonusBalls){
+			_game.add(_game.ball_2,_game.getWidth()/2-_game.bar_1.getWidth(), _game.getHeight()*0.70-_game.ball_2.getHeight());
+			_game.multipleBalls=1;
+			_game.remove(auxiliar);
+			collisionClear = false;
+		}
 		//--------------------------------
 		//Aqui entra si hay otra bola
 		else if(auxiliar instanceof BallAux){

@@ -1,5 +1,7 @@
 package codigo;
 import java.awt.Color;
+
+import acm.graphics.GObject;
 import acm.graphics.GRect;
 
 /**
@@ -32,7 +34,7 @@ public class Bar extends GRect {
 	 * @param _weightScreen - int
 	 * 			Ancho de la pantalla
 	 */
-	public void moveBar(int xPos, int _weightScreen){
+	public void moveBar(int xPos, int _weightScreen, Arkanoid _game){
 		if(xPos + getWidth() < _weightScreen&& xPos>= 0){
 			setLocation(xPos, getY());
 		}
