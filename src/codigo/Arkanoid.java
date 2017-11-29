@@ -104,7 +104,7 @@ public class Arkanoid extends acm.program.GraphicsProgram{
 				}
 				//Movimiento del bonus de las pelotas
 				if(bonusBalls.getY()<getHeight()){
-					bonusBalls.move(0, 1);
+					bonusBalls.moveBonus(this);;
 					if(bonusBalls.getY()==getHeight()){
 						remove(bonusBalls);
 					}
