@@ -13,7 +13,7 @@ public class Lifes extends GRect {
 		super(width, height);
 		lifes = _lifes;
 		setFilled(true);
-		setFillColor(Color.BLUE);
+		setFillColor(Color.CYAN);
 		text.setLabel("Lifes:"+lifes);
 		text.setFont(new Font("Verdana", Font.BOLD, 18));
 	}

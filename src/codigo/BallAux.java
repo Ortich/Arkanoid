@@ -9,10 +9,10 @@ import acm.graphics.GOval;
  *	Clase de las pelotas
  *	(Interpretalo a tu gusto)
  */
-public class Ball extends GOval{
+public class BallAux extends GOval{
 
-	double xVelocidad = 3;
-	double yVelocidad = -3;
+	double xVelocidad = 5;
+	double yVelocidad = -5;
 	double magicalCounter = 0;//Para aumentar la velocidad de la bola
 	/**
 	 * Constructor tal y como lo usa la clase GOval
@@ -21,7 +21,7 @@ public class Ball extends GOval{
 	 * @param alto
 	 * 			alto de la pelota
 	 */
-	public Ball(double _width, double _height){
+	public BallAux(double _width, double _height){
 		super(_width, _height);
 	}
 	/**
@@ -31,7 +31,7 @@ public class Ball extends GOval{
 	 * @param Color
 	 * 			El color de la bola
 	 */
-	public Ball(double _width, Color _color){
+	public BallAux(double _width, Color _color){
 		super(_width, _width);
 		if(_width<=0){
 			this.setSize(1, 1);
@@ -53,11 +53,8 @@ public class Ball extends GOval{
 			yVelocidad*=0;
 			xVelocidad*=0;
 			//yVelocidad*=-1;      //Esta hecho para hacer comprobaciones. Simplemente rebota en el suelo.
-			_game.lifes.setLessLifes(1);
-			_game.ball_1.setLocation(_game.bar_1.getX(), _game.getHeight()*0.82-getHeight());
-			pause(600);
-			xVelocidad = 3;
-			yVelocidad = -3;
+			_game.remove(this);
+			_game.multipleBalls--;
 		}
 		//Voy a dividir la bola en 8 puntos para hacer las comprobaciones pertinentes. 
 		//Los puntos estaran repartdos de la sieguiente manera.
@@ -241,17 +238,8 @@ public class Ball extends GOval{
 			collisionClear = false;
 		}
 		//--------------------------------
-		//Aqui entra si se encuentra con el debuff de la barra
-				else if(auxiliar instanceof BonusBalls){
-					_game.add(_game.ball_2,_game.getWidth()/2-_game.bar_1.getWidth(), _game.getHeight()*0.70-_game.ball_2.getHeight());
-					_game.add(_game.ball_3, _game.getWidth()/4-_game.bar_1.getWidth(), _game.getHeight()*0.70-_game.ball_3.getHeight());
-					_game.multipleBalls=2;
-					_game.remove(auxiliar);
-					collisionClear = false;
-				}
-		//--------------------------------
 		//Aqui entra si hay otra bola
-		else if(auxiliar instanceof BallAux){
+		else if(auxiliar instanceof Ball){
 			yVelocidad*=-1;
 			xVelocidad*=-1;
 		}
