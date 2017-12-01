@@ -14,7 +14,7 @@ public class BonusBalls extends GRect{
 	int xSpeed = 0;
 	int ySpeed = 1;
 	/**
-	 * Construye un bonus
+	 * Construye el Bonus de las pelotas
 	 * 
 	 * @param _width - double
 	 * 			Ancho del bonus
@@ -28,30 +28,42 @@ public class BonusBalls extends GRect{
 		setFilled(true);
 		setFillColor(Color.BLUE);
 	}
+	/**
+	 * Ahora creo un método para mover el bonus mientras checkea las colisiones
+	 * 
+	 * @param _game-Aquí vendra el juego donde estará el Bonus
+	 */
 	public void moveBonus(Arkanoid _game){
-		//	Divido el bonus de la siguiente manera
+		//	Divido el bonus de la siguiente manera y hago los checkeos en cada punto
 		//	
 		//	1-------------2
 		//	|			  |
 		//	|			  |
 		//	4-------------3
-		if(checkBarCollision(getX(), getY(), _game)){//Punto 1
-			if(checkBarCollision(getX()+getWidth(), getY(), _game)){//Punto 2
-				if(checkBarCollision(getX()+getWidth(), getY()+getHeight(), _game)){//Punto3
-					if(checkBarCollision(getX(), getY()+getWidth(), _game)){//Punto4		
+		if(checkBarCollision((int)getX(), (int)getY(), _game)){//Punto 1
+			if((checkBarCollision((int)getX()+(int)getWidth(), (int)getY(), _game))){//Punto 2
+				if((checkBarCollision((int)getX()+(int)getWidth(), (int)getY()+(int)getHeight(), _game))){//Punto3
+					if(checkBarCollision((int)getX(), (int)getY()+(int)getWidth(), _game)){//Punto4		
 					}
 				}
 			}
 		}
+		//Cuando haya comprobado las colisiones se mueve.
 		move(xSpeed,ySpeed);
 	}
-
-	private boolean checkBarCollision(double posX, double posY, Arkanoid _game){
-		boolean collisionClear = true;
-		GObject auxiliar;
-		auxiliar = _game.getElementAt(posX, posY);
-		if(auxiliar instanceof Bar ){
-			//Aqui entra si se encuentra con el debuff de la barra	
+	/**
+	 * Para hacer las comprobaciones llamo  a este método con las siguientes cosas y voy comprobando si hay algo. 
+	 * @param posX-Posicion x a comprobar
+	 * @param posY-Posicion y a comprobar
+	 * @param _game-Juego donde se ejecutara
+	 * @return-Retorna verdadero si no ha colisionado
+	 */
+	private boolean checkBarCollision(int posX, int posY, Arkanoid _game){
+		boolean collisionClear = true;//Primero declaro el boolean que dira si ha chocado
+		GObject auxiliar;//Objeto auxiliar que estara vacio si no hay colisionado
+		auxiliar = _game.getElementAt((int)posX, (int)posY);//El elemento que hay en la posicion lo guarda en auxiliar
+		if(auxiliar instanceof Bar ){//Si es la barra ejecuta el Bonus
+			//En este caso añade una nueva bola y quita el Bonus
 			_game.add(_game.ball_2,_game.getWidth()/2-_game.bar_1.getWidth(), _game.getHeight()*0.70-_game.ball_2.getHeight());
 			_game.multipleBalls=1;
 			_game.remove(this);
